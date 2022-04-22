@@ -9,6 +9,8 @@
 #include "time.h"
 #include <ESPmDNS.h>
 
+#include "soc/rtc_cntl_reg.h"
+
 
 /* This sketch is a extension/expansion/reork of the 'official' ESP32 Camera example
  *  sketch from Expressif:
@@ -314,6 +316,8 @@ void calcURLs() {
 }
 
 void StartCamera() {
+    WRITE_PERI_REG(RTC_CNTL_BROWN_OUT_REG, 0); //disable brownout detector
+  
     // Populate camera config structure with hardware and other defaults
     config.ledc_channel = LEDC_CHANNEL_0;
     config.ledc_timer = LEDC_TIMER_0;
